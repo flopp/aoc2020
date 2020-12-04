@@ -18,6 +18,13 @@ all:
 	$< < 04-test.txt
 	$< < 04-data.txt
 
+
+
+01-py:
+	python3 01.py < 01-test.txt
+	python3 01.py < 01-data.txt
+
+
 .build/%.cpp.bin: %.cpp
 	@mkdir -p .build
 	g++ -std=c++11 -O2 -Wall -Wextra -o $@ $<
