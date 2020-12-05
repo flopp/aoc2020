@@ -27,6 +27,10 @@ all:
 	python3 01.py < 01-test.txt
 	python3 01.py < 01-data.txt
 
+04-py:
+	python3 04.py < 04-test.txt
+	python3 04.py < 04-data.txt
+
 05-py:
 	python3 05.py < 05-test.txt
 	python3 05.py < 05-data.txt
