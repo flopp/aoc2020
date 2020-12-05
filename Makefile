@@ -18,6 +18,9 @@ all:
 	$< < 04-test.txt
 	$< < 04-data.txt
 
+05-cpp: .build/05.cpp.bin
+	$< < 05-test.txt
+	$< < 05-data.txt
 
 
 01-py:
