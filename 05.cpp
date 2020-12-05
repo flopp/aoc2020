@@ -1,6 +1,15 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
+
+int get_seat_id(const std::string& s) {
+    int id = 0;
+    for (char c: s) {
+        id = id * 2 + ((c == 'B' || c == 'R') ? 1 : 0);
+    }
+    return id;
+}
 
 int main() {
     int max_seat_id = -1;
@@ -8,29 +17,8 @@ int main() {
     
     std::string line;
     while (std::getline(std::cin, line)) {
-        int row = 0;
-        int column = 0;
-        Seat seat;
-        for (char c: line) {
-            switch (c) {
-                case 'F':
-                    row = 2 * row;
-                    break;
-                case 'B':
-                    row = 2 * row + 1;
-                    break;
-                case 'L':
-                    column = 2 * column;
-                    break;
-                case 'R':
-                    column = 2 * column + 1;
-                    break;
-            }
-        }
-        int seat_id = row * 8 + column;
-        if (seat_id > max_seat_id) {
-            max_seat_id = seat_id;
-        }
+        int seat_id = get_seat_id(line);
+        max_seat_id = std::max(max_seat_id, seat_id);
         occupied[seat_id] = true;
     }
 

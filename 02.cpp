@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <regex>
 #include <string>
@@ -5,12 +6,7 @@
 bool is_valid_password_part1(
     const std::string& password, int min, int max, char letter
 ) {
-    int count = 0;
-    for (auto c: password) {
-        if (c == letter) {
-            ++count;
-        }
-    }
+    const int count = std::count(password.begin(), password.end(), letter);
     return ((min <= count) && (count <= max));
 }
 
@@ -30,10 +26,10 @@ int main() {
     while (std::getline(std::cin, line)) {
         std::smatch match;
         if (std::regex_match(line, match, re)) {
-            const std::string password = match[4];
             const int min = std::stoi(match[1]);
             const int max = std::stoi(match[2]);
             const char letter = *(match[3].first);
+            const std::string password = match[4];
         
             if (is_valid_password_part1(password, min, max, letter)) {
                 ++valid_passwords_part1;
