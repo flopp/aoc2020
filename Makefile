@@ -35,6 +35,9 @@ all:
 	python3 05.py < 05-test.txt
 	python3 05.py < 05-data.txt
 
+06-py:
+	python3 06.py < 06-test.txt
+	python3 06.py < 06-data.txt
 
 .build/%.cpp.bin: %.cpp
 	@mkdir -p .build
