@@ -39,6 +39,10 @@ all:
 	python3 06.py < 06-test.txt
 	python3 06.py < 06-data.txt
 
+07-py:
+	python3 07.py < 07-test.txt
+	python3 07.py < 07-data.txt
+
 .build/%.cpp.bin: %.cpp
 	@mkdir -p .build
 	g++ -std=c++11 -O2 -Wall -Wextra -o $@ $<
