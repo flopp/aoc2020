@@ -1,7 +1,5 @@
 import fileinput
 import re
-import string
-import sys
 
 re_rule1 = re.compile(r'(\w+ \w+) bags contain')
 re_rule2 = re.compile(r' (\d+) (\w+ \w+) bags?')
