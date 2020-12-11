@@ -55,6 +55,10 @@ all:
 	python3 10.py < 10-test.txt
 	python3 10.py < 10-data.txt
 
+11-py:
+	python3 11.py < 11-test.txt
+	python3 11.py < 11-data.txt
+
 
 .build/%.cpp.bin: %.cpp
 	@mkdir -p .build
