@@ -22,9 +22,6 @@ print(min_wait * min_bus_id)
 
 
 print("PART2")
-def lcm(a, b):
-    return a * b // math.gcd(a, b)
-
 jump = 1
 t = 0
 for bus_id, offset in buses:
