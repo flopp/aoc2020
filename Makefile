@@ -72,6 +72,10 @@ all:
 	python3 14.py < 14-test2.txt
 	python3 14.py < 14-data.txt
 
+15-py:
+	python3 15.py < 15-test.txt
+	python3 15.py < 15-data.txt
+
 .build/%.cpp.bin: %.cpp
 	@mkdir -p .build
 	g++ -std=c++11 -O2 -Wall -Wextra -o $@ $<
