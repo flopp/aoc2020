@@ -2,6 +2,10 @@
 all:
 	@echo "Run day 01 with 'make 01-cpp', etc."
 
+.build/%.cpp.bin: %.cpp
+	@mkdir -p .build
+	g++ -std=c++11 -O2 -Wall -Wextra -o $@ $<
+
 01-cpp: .build/01.cpp.bin
 	$< < 01-test.txt
 	$< < 01-data.txt
@@ -21,7 +25,6 @@ all:
 05-cpp: .build/05.cpp.bin
 	$< < 05-test.txt
 	$< < 05-data.txt
-
 
 01-py:
 	python3 01.py < 01-test.txt
@@ -76,6 +79,6 @@ all:
 	python3 15.py < 15-test.txt
 	python3 15.py < 15-data.txt
 
-.build/%.cpp.bin: %.cpp
-	@mkdir -p .build
-	g++ -std=c++11 -O2 -Wall -Wextra -o $@ $<
+16-py:
+	#python3 16.py < 16-test.txt
+	python3 16.py < 16-data.txt

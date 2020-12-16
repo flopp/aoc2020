@@ -1,7 +1,5 @@
 import sys
 
-start_configurations = [[int(x) for x in line.strip().split(',')] for line in sys.stdin]
-
 def run(start, turns):
     turns_spoken1 = [-1] * turns
     turns_spoken2 = [-1] * turns
@@ -14,6 +12,8 @@ def run(start, turns):
         turns_spoken2[spoken] = turns_spoken1[spoken]
         turns_spoken1[spoken] = turn
     return spoken
+
+start_configurations = [[int(x) for x in line.strip().split(',')] for line in sys.stdin]
 
 print("PART1")
 for start in start_configurations:
