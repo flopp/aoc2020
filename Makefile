@@ -82,3 +82,7 @@ all:
 16-py:
 	#python3 16.py < 16-test.txt
 	python3 16.py < 16-data.txt
+
+17-py:
+	python3 17.py < 17-test.txt
+	python3 17.py < 17-data.txt
