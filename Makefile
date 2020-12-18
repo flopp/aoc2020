@@ -86,3 +86,7 @@ all:
 17-py:
 	python3 17.py < 17-test.txt
 	python3 17.py < 17-data.txt
+
+18-py:
+	python3 18.py < 18-test.txt
+	python3 18.py < 18-data.txt
