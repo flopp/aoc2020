@@ -11,7 +11,7 @@ DAY=$1
 
 echo "" >> Makefile
 echo "${DAY}-py:" >> Makefile
-echo "	python3 ${DAY}.py < ${DAY}-test.txt" >> Makefile
-echo "	python3 ${DAY}.py < ${DAY}-data.txt" >> Makefile
+echo "	.env/bin/python ${DAY}.py < ${DAY}-test.txt" >> Makefile
+echo "	.env/bin/python ${DAY}.py < ${DAY}-data.txt" >> Makefile
 
 touch ${DAY}.py ${DAY}-test.txt ${DAY}-data.txt
