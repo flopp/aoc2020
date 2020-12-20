@@ -6,15 +6,11 @@ import sys
 class Tile:
     def __init__(self, rows):
         self._rows = rows
-        self._edge0 = self._rows[0]
-        self._edge1 = self._rows[-1]
-        self._edge2 = "".join([row[0] for row in self._rows])
-        self._edge3 = "".join([row[-1] for row in self._rows])
-        self._edge4 = self._edge0[::-1]
-        self._edge5 = self._edge1[::-1]
-        self._edge6 = self._edge2[::-1]
-        self._edge7 = self._edge3[::-1]
     
+    def print(self):
+        for row in self._rows:
+            print(''.join(row))
+
     def width(self, rotation):
         if rotation in [0, 2, 4, 6]:
             return len(self._rows[0])
@@ -36,56 +32,37 @@ class Tile:
             return self._rows[-(y+1)][-(x+1)]
         if rotation == 3:
             return self._rows[x][-(y+1)]
-        if rotation == 4:
-            return self.get(rotation - 4, y, -(x+1))
+        return self.get(rotation - 4, -(x+1), y)
+    
+    def set(self, rotation, x, y, char):
+        if rotation == 0:
+            self._rows[y][x] = char
+        elif rotation == 1:
+            self._rows[-(x+1)][y] = char
+        elif rotation == 2:
+            self._rows[-(y+1)][-(x+1)] = char
+        elif rotation == 3:
+            self._rows[x][-(y+1)] = char
+        else:
+            self.set(rotation - 4, -(x+1), y, value)
 
     def t(self, rotation):
-        return [
-            self._edge0,
-            self._edge6,
-            self._edge5,
-            self._edge3,
-            self._edge4,
-            self._edge2,
-            self._edge1,
-            self._edge7,
-        ][rotation]
+        return ''.join([self.get(rotation, x, 0) for x in range(self.width(rotation))])
 
     def b(self, rotation):
-        return [
-            self._edge1,
-            self._edge7,
-            self._edge4,
-            self._edge2,
-            self._edge5,
-            self._edge3,
-            self._edge0,
-            self._edge6,
-        ][rotation]
+        return ''.join([self.get(rotation, x, -1) for x in range(self.width(rotation))])
 
     def l(self, rotation):
-        return [
-            self._edge2,
-            self._edge1,
-            self._edge7,
-            self._edge4,
-            self._edge3,
-            self._edge0,
-            self._edge6,
-            self._edge5,
-        ][rotation]
+        return ''.join([self.get(rotation, 0, y) for y in range(self.height(rotation))])
 
     def r(self, rotation):
-        return [
-            self._edge3,
-            self._edge0,
-            self._edge6,
-            self._edge5,
-            self._edge2,
-            self._edge1,
-            self._edge7,
-            self._edge4,
-        ][rotation]
+        return ''.join([self.get(rotation, -1, y) for y in range(self.height(rotation))])
+
+    def insert(self, tile, rotation, x, y):
+        for yy in range(tile.height(rotation)):
+            for xx in range(tile.width(rotation)):
+                self.set(0, xx + x, yy + y, tile.get(rotation, xx, yy))
+
 
 
 re_tile = re.compile(r"^Tile (\d+):$")
@@ -160,7 +137,37 @@ for y in range(size):
         remaining.remove(tile1)
 
 print("PART1")
-print(square[0][0] * square[size - 1][0] * square[(size - 1) * size][0] * square[-1][0])
+print(square[0][0] * square[size-1][0] * square[(size-1)*size][0] * square[-1][0])
 
 print("PART2")
-sea_monster = ["                  #", "#    ##    ##    ###", " #  #  #  #  #  #   "]
+tile_size = tiles[square[0][0]].width(0)
+rows = []
+for y in range(2 + size * (tile_size - 2)):
+    rows.append(['.'] * (2 + size * (tile_size - 2)))
+grid = Tile(rows)
+for y in range(size):
+    if y == 0:
+        sy = 0
+        h = tile_size - 1
+    elif y == size - 1:
+        sy = 1
+        h = tile_size - 1
+    else:
+        sy = 1
+        h = tile_size - 2
+    for x in range(size):
+        tile_id, rotation = square[y * size + x]
+        tile = tiles[tile_id]
+        if x == 0:
+            sx = 0
+            w = tile_size - 1
+        elif x == size - 1:
+            sx = 1
+            w = tile_size - 1
+        else:
+            sx = 1
+            w = tile_size - 2
+        for yy in range(h):
+            for xx in range(w):
+                grid.set(0, xx + x * w, yy + y * h, tile.get(rotation, xx + sx, yy + sy))
+grid.print()
