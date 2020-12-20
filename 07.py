@@ -1,8 +1,8 @@
 import fileinput
 import re
 
-re_rule1 = re.compile(r'(\w+ \w+) bags contain')
-re_rule2 = re.compile(r' (\d+) (\w+ \w+) bags?')
+re_rule1 = re.compile(r"(\w+ \w+) bags contain")
+re_rule2 = re.compile(r" (\d+) (\w+ \w+) bags?")
 rules = {}
 for line in fileinput.input():
     m1 = re_rule1.match(line)
@@ -21,9 +21,11 @@ while True:
         break
     containers = new_containers
 print(len(containers) - 1)
-                    
+
 print("PART2")
 size_cache = {}
+
+
 def compute_size(bag):
     if bag in size_cache:
         return size_cache[bag]
@@ -31,4 +33,6 @@ def compute_size(bag):
     for other_count, other_bag in rules[bag]:
         size += other_count * compute_size(other_bag)
     return size
+
+
 print(compute_size("shiny gold") - 1)

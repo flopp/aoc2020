@@ -5,11 +5,11 @@ fields = {}
 your_ticket = None
 nearby_tickets = []
 
-re_field = re.compile(r'^(.+): (\d+)-(\d+) or (\d+)-(\d+)$')
-re_ticket = re.compile(r'^([\d,]+)$')
-re_empty = re.compile(r'^$')
-re_your_ticket = re.compile(r'^your ticket:$')
-re_nearby_tickets = re.compile(r'^nearby tickets:$')
+re_field = re.compile(r"^(.+): (\d+)-(\d+) or (\d+)-(\d+)$")
+re_ticket = re.compile(r"^([\d,]+)$")
+re_empty = re.compile(r"^$")
+re_your_ticket = re.compile(r"^your ticket:$")
+re_nearby_tickets = re.compile(r"^nearby tickets:$")
 
 state = 0
 for line in sys.stdin:
@@ -27,16 +27,16 @@ for line in sys.stdin:
         m = re_ticket.match(line)
         assert m
         assert your_ticket is None
-        your_ticket = [int(x) for x in line.split(',')]
+        your_ticket = [int(x) for x in line.split(",")]
     elif state == 3:
         assert re_nearby_tickets.match(line)
         state = 4
     elif state == 4:
         m = re_ticket.match(line)
         assert m
-        nearby_tickets.append([int(x) for x in line.split(',')])
+        nearby_tickets.append([int(x) for x in line.split(",")])
     else:
-        raise ValueError(f'bad state: {state}')
+        raise ValueError(f"bad state: {state}")
 
 print("PART1")
 valid_tickets = [your_ticket]
@@ -45,7 +45,10 @@ for ticket in nearby_tickets:
     is_valid = True
     for value in ticket:
         for field_ranges in fields.values():
-            if field_ranges[0] <= value <= field_ranges[1] or field_ranges[2] <= value <= field_ranges[3]:
+            if (
+                field_ranges[0] <= value <= field_ranges[1]
+                or field_ranges[2] <= value <= field_ranges[3]
+            ):
                 break
         else:
             ticket_scanning_error_rate += value
@@ -61,7 +64,10 @@ for ticket in valid_tickets:
         possible = set()
         for field in possible_fields[index]:
             field_ranges = fields[field]
-            if field_ranges[0] <= value <= field_ranges[1] or field_ranges[2] <= value <= field_ranges[3]:
+            if (
+                field_ranges[0] <= value <= field_ranges[1]
+                or field_ranges[2] <= value <= field_ranges[3]
+            ):
                 possible.add(field)
         possible_fields[index] = possible_fields[index].intersection(possible)
 

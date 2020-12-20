@@ -7,7 +7,11 @@ for index, line in enumerate(sys.stdin):
     if index == 0:
         earliest_departure_time = int(line)
     else:
-        buses = [(int(token), offset) for offset, token in enumerate(line.split(',')) if token != 'x']
+        buses = [
+            (int(token), offset)
+            for offset, token in enumerate(line.split(","))
+            if token != "x"
+        ]
 
 
 print("PART1")
@@ -27,5 +31,5 @@ t = 0
 for bus_id, offset in buses:
     while (t + offset) % bus_id != 0:
         t += jump
-    jump = jump * bus_id // math.gcd(jump, bus_id) # lcm
+    jump = jump * bus_id // math.gcd(jump, bus_id)  # lcm
 print(t)

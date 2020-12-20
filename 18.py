@@ -1,5 +1,6 @@
 import sys
 
+
 def tokensize(s):
     tokens = []
     num = ""
@@ -16,30 +17,34 @@ def tokensize(s):
         tokens.append(int(num))
     return tokens
 
+
 expressions = [tokensize(line) for line in sys.stdin]
+
 
 def compute1(expression):
     value = 0
-    op = '+'
-    while op != ')':
+    op = "+"
+    while op != ")":
         e = expression.pop(0)
         if not isinstance(e, int):
-            assert e == '('
+            assert e == "("
             e = compute1(expression)
 
-        if op == '+':
+        if op == "+":
             value += e
-        elif op == '*':
+        elif op == "*":
             value *= e
 
         if len(expression) == 0:
-            op = ')'
+            op = ")"
         else:
             op = expression.pop(0)
     return value
 
+
 def compute2(expression):
     return 0
+
 
 print("PART1")
 print(sum(compute1(list(e)) for e in expressions))

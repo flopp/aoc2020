@@ -6,7 +6,11 @@ all:
 setup:
 	python3 -m venv .env
 	.env/bin/pip install --upgrade pip
-	.env/bin/pip install --upgrade regex
+	.env/bin/pip install --upgrade regex black
+
+.PHONY: format
+format:
+	.env/bin/black *.py
 
 .build/%.cpp.bin: %.cpp
 	@mkdir -p .build

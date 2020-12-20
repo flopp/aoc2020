@@ -2,14 +2,15 @@ import math
 import re
 import sys
 
+
 class Tile:
     def __init__(self, tile_id, rows):
         self._tile_id = tile_id
         self._rows = rows
         self._edge0 = self._rows[0]
         self._edge1 = self._rows[-1]
-        self._edge2 = ''.join([row[0] for row in self._rows])
-        self._edge3 = ''.join([row[-1] for row in self._rows])
+        self._edge2 = "".join([row[0] for row in self._rows])
+        self._edge3 = "".join([row[-1] for row in self._rows])
         self._edge4 = self._edge0[::-1]
         self._edge5 = self._edge1[::-1]
         self._edge6 = self._edge2[::-1]
@@ -63,8 +64,9 @@ class Tile:
             self._edge4,
         ][rotation]
 
-re_tile = re.compile(r'^Tile (\d+):$')
-re_row = re.compile(r'^([#\.]+)$')
+
+re_tile = re.compile(r"^Tile (\d+):$")
+re_row = re.compile(r"^([#\.]+)$")
 
 tiles = {}
 tile_id = None
@@ -79,6 +81,7 @@ for line in sys.stdin:
         tile_rows.append(m[1])
 if tile_id is not None:
     tiles[tile_id] = Tile(tile_id, tile_rows)
+
 
 def find_top_left(tiles):
     edges = {}
@@ -97,6 +100,7 @@ def find_top_left(tiles):
     assert len(candidates) == 8
     return candidates[0]
 
+
 def find_edge_t(tiles, remaining, edge):
     for tile1 in remaining:
         tile = tiles[tile1]
@@ -104,12 +108,14 @@ def find_edge_t(tiles, remaining, edge):
             if tile.t(rotation1) == edge:
                 return tile1, rotation1
 
+
 def find_edge_l(tiles, remaining, edge):
     for tile1 in remaining:
         tile = tiles[tile1]
         for rotation1 in range(8):
             if tile.l(rotation1) == edge:
                 return tile1, rotation1
+
 
 size = int(math.sqrt(len(tiles)))
 square = []
@@ -131,4 +137,7 @@ for y in range(size):
         remaining.remove(tile1)
 
 print("PART1")
-print(square[0][0] * square[size-1][0] * square[(size-1)*size][0] * square[-1][0])
+print(square[0][0] * square[size - 1][0] * square[(size - 1) * size][0] * square[-1][0])
+
+print("PART2")
+sea_monster = ["                  #", "#    ##    ##    ###", " #  #  #  #  #  #   "]

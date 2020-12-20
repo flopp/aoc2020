@@ -1,7 +1,16 @@
 import sys
 
 grid = [[char for char in line.strip()] for line in sys.stdin]
-directions = [(-1, -1), (-1, 0), (-1, +1), (0, -1), (0, +1), (+1, -1), (+1, 0), (+1, +1)]
+directions = [
+    (-1, -1),
+    (-1, 0),
+    (-1, +1),
+    (0, -1),
+    (0, +1),
+    (+1, -1),
+    (+1, 0),
+    (+1, +1),
+]
 
 
 def look_part1(g, x, y, w, h):
@@ -11,7 +20,7 @@ def look_part1(g, x, y, w, h):
         y2 = y + dy
         x2 = x + dx
         if (0 <= y2 < h) and (0 <= x2 < w):
-            around += (g[y2][x2] == '#')
+            around += g[y2][x2] == "#"
     return around
 
 
@@ -26,10 +35,10 @@ def look_part2(g, x, y, w, h):
             x2 += dx
             if (0 <= y2 < h) and (0 <= x2 < w):
                 c = g[y2][x2]
-                if c == '#':
+                if c == "#":
                     around += 1
                     break
-                if c == 'L':
+                if c == "L":
                     break
             else:
                 break
@@ -46,17 +55,17 @@ def sim(g, look, sensitivity):
         for y, r in enumerate(g):
             r2 = list(r)
             for x, c in enumerate(r):
-                if c == 'L':
+                if c == "L":
                     if look(g, x, y, w, h) == 0:
-                        r2[x] = '#'
+                        r2[x] = "#"
                         changed = True
-                elif c == '#':
+                elif c == "#":
                     if look(g, x, y, w, h) >= sensitivity:
-                        r2[x] = 'L'
+                        r2[x] = "L"
                         changed = True
             g2.append(r2)
         g = g2
-    return sum(r.count('#') for r in g)
+    return sum(r.count("#") for r in g)
 
 
 print("PART1")

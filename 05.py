@@ -1,10 +1,12 @@
 import fileinput
 
+
 def decode_id(s):
     i = 0
     for c in s:
-        i = i * 2 + (1 if (c == 'B' or c == 'R') else 0)
+        i = i * 2 + (1 if (c == "B" or c == "R") else 0)
     return i
+
 
 ids = sorted([decode_id(line.strip()) for line in fileinput.input()])
 
