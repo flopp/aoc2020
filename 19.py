@@ -14,15 +14,6 @@ for line in sys.stdin:
     elif len(line) > 0:
         messages.append(line)
 
-def build_re1(rules, rule_id):
-    rule = rules[rule_id]
-    if isinstance(rule, str):
-        return f'{rule}'
-    sub_res = []
-    for sub in rule:
-        sub_res.append(''.join([build_re1(rules, r) for r in sub]))
-    return '(?:' + '|'.join(sub_res) + ')'
-
 count_r11 = 0
 def build_re(rules, rule_id, part2):
     if part2:

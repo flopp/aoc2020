@@ -101,3 +101,7 @@ setup:
 	.env/bin/python 19.py < 19-test.txt
 	.env/bin/python 19.py < 19-test2.txt
 	.env/bin/python 19.py < 19-data.txt
+
+20-py:
+	.env/bin/python 20.py < 20-test.txt
+	.env/bin/python 20.py < 20-data.txt
