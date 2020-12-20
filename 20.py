@@ -26,6 +26,18 @@ class Tile:
             return len(self._rows)
         else:
             return len(self._rows[0])
+    
+    def get(self, rotation, x, y):
+        if rotation == 0:
+            return self._rows[y][x]
+        if rotation == 1:
+            return self._rows[-(x+1)][y]
+        if rotation == 2:
+            return self._rows[-(y+1)][-(x+1)]
+        if rotation == 3:
+            return self._rows[x][-(y+1)]
+        if rotation == 4:
+            return self.get(rotation - 4, y, -(x+1))
 
     def t(self, rotation):
         return [
