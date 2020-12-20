@@ -4,8 +4,7 @@ import sys
 
 
 class Tile:
-    def __init__(self, tile_id, rows):
-        self._tile_id = tile_id
+    def __init__(self, rows):
         self._rows = rows
         self._edge0 = self._rows[0]
         self._edge1 = self._rows[-1]
@@ -74,29 +73,29 @@ tile_rows = []
 for line in sys.stdin:
     if m := re_tile.match(line):
         if tile_id is not None:
-            tiles[tile_id] = Tile(tile_id, tile_rows)
+            tiles[tile_id] = Tile(tile_rows)
         tile_id = int(m[1])
         tile_rows = []
     elif m := re_row.match(line):
         tile_rows.append(m[1])
 if tile_id is not None:
-    tiles[tile_id] = Tile(tile_id, tile_rows)
+    tiles[tile_id] = Tile(tile_rows)
 
 
 def find_top_left(tiles):
     edges = {}
-    for tile in tiles.values():
+    for tile_id, tile in tiles.items():
         for rotation in range(8):
             edge = tile.t(rotation)
             if edge in edges:
-                edges[edge].append((tile._tile_id, rotation))
+                edges[edge].append((tile_id, rotation))
             else:
-                edges[edge] = [(tile._tile_id, rotation)]
+                edges[edge] = [(tile_id, rotation)]
     candidates = []
-    for tile in tiles.values():
+    for tile_id, tile in tiles.items():
         for rotation in range(8):
             if len(edges[tile.t(rotation)]) == 1 and len(edges[tile.l(rotation)]) == 1:
-                candidates.append((tile._tile_id, rotation))
+                candidates.append((tile_id, rotation))
     assert len(candidates) == 8
     return candidates[0]
 
