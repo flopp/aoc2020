@@ -14,6 +14,18 @@ class Tile:
         self._edge5 = self._edge1[::-1]
         self._edge6 = self._edge2[::-1]
         self._edge7 = self._edge3[::-1]
+    
+    def width(self, rotation):
+        if rotation in [0, 2, 4, 6]:
+            return len(self._rows[0])
+        else:
+            return len(self._rows)
+    
+    def height(self, rotation):
+        if rotation in [0, 2, 4, 6]:
+            return len(self._rows)
+        else:
+            return len(self._rows[0])
 
     def t(self, rotation):
         return [
