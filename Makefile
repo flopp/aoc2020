@@ -113,3 +113,7 @@ format:
 21-py:
 	.env/bin/python 21.py < 21-test.txt
 	.env/bin/python 21.py < 21-data.txt
+
+22-py:
+	.env/bin/python 22.py < 22-test.txt
+	.env/bin/python 22.py < 22-data.txt
